@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบประเมินโครงการ Pitch for Pattani</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&family=Prompt:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #0d6e6e;
+    --teal-light: #14a89a;
+    --teal-pale: #e0f5f3;
+    --gold: #c9a84c;
+    --gold-light: #f0d080;
+    --dark: #1a2332;
+    --mid: #2e3f55;
+    --grey: #6b7c93;
+    --light: #f4f7f9;
+    --white: #ffffff;
+    --error: #e05252;
+    --success: #2ecc71;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* HERO HEADER */
+  .hero {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--mid) 50%, var(--teal) 100%);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 70%);
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(20,168,154,0.18) 0%, transparent 70%);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.2);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--gold-light);
+    font-family: 'Sarabun', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Prompt', sans-serif;
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 10px;
+    position: relative; z-index: 1;
+  }
+
+  .hero h1 span {
+    color: var(--gold-light);
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+
+  .hero-meta {
+    display: inline-flex;
+    gap: 24px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 12px;
+    padding: 12px 28px;
+    position: relative; z-index: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-meta span {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .hero-meta span::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    flex-shrink: 0;
+  }
+
+  /* PROGRESS */
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.95);
+    padding: 16px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .progress-label {
+    font-size: 13px;
+    color: var(--grey);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .progress-track {
+    flex: 1;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+    border-radius: 99px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-pct {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--teal);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* MAIN CONTAINER */
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 36px 20px 60px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--teal-pale);
+  }
+
+  .section-num {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    color: white;
+    font-family: 'Prompt', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Prompt', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+
+  /* CARD */
+  .card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1.5px solid transparent;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .card:focus-within {
+    border-color: var(--teal-light);
+    box-shadow: 0 4px 20px rgba(13,110,110,0.12);
+  }
+
+  .q-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 14px;
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+  }
+
+  .q-num {
+    color: var(--teal);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .required-star {
+    color: var(--error);
+    font-size: 12px;
+    margin-left: 2px;
+  }
+
+  /* TEXT INPUT */
+  .text-input, .textarea-input, .select-input {
+    width: 100%;
+    border: 1.5px solid #dde3ea;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 15px;
+    color: var(--dark);
+    background: #fafbfc;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .text-input:focus, .textarea-input:focus, .select-input:focus {
+    border-color: var(--teal-light);
+    background: white;
+  }
+
+  .textarea-input {
+    resize: vertical;
+    min-height: 96px;
+  }
+
+  /* RADIO / CHECKBOX */
+  .options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1.5px solid #dde3ea;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+
+  .option-item:hover {
+    border-color: var(--teal-light);
+    background: var(--teal-pale);
+  }
+
+  .option-item input[type="radio"],
+  .option-item input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--teal);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .option-item input:checked + span {
+    color: var(--teal);
+    font-weight: 600;
+  }
+
+  .option-item:has(input:checked) {
+    border-color: var(--teal);
+    background: var(--teal-pale);
+  }
+
+  /* SCALE */
+  .scale-wrap {
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--grey);
+    margin-bottom: 8px;
+    padding: 0 2px;
+  }
+
+  .scale-options {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .scale-btn {
+    flex: 1;
+    min-width: 44px;
+    height: 44px;
+    border: 1.5px solid #dde3ea;
+    background: #fafbfc;
+    border-radius: 10px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--grey);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .scale-btn:hover {
+    border-color: var(--teal-light);
+    background: var(--teal-pale);
+    color: var(--teal);
+  }
+
+  .scale-btn.selected {
+    border-color: var(--teal);
+    background: var(--teal);
+    color: white;
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(13,110,110,0.25);
+  }
+
+  /* SUBMIT */
+  .submit-wrap {
+    text-align: center;
+    padding: 32px 0 16px;
+  }
+
+  .submit-btn {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-light) 100%);
+    color: white;
+    border: none;
+    padding: 16px 52px;
+    border-radius: 50px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(13,110,110,0.3);
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(13,110,110,0.4);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 72px 24px;
+  }
+
+  .success-icon {
+    width: 80px; height: 80px;
+    background: linear-gradient(135deg, var(--teal), var(--teal-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 36px;
+  }
+
+  .success-screen h2 {
+    font-family: 'Prompt', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 10px;
+  }
+
+  .success-screen p {
+    color: var(--grey);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* VALIDATION */
+  .field-error {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 6px;
+    display: none;
+  }
+
+  .card.has-error {
+    border-color: var(--error);
+  }
+
+  .card.has-error .field-error {
+    display: block;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 520px) {
+    .scale-btn { min-width: 36px; height: 40px; font-size: 14px; }
+    .scale-options { gap: 5px; }
+    .hero-meta { gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">ชมรมผู้ประกอบการนักศึกษา ม.อ.ปัตตานี</div>
+  <h1>Pitch for <span>Pattani</span></h1>
+  <div class="hero-sub">แบบประเมินโครงการ — "เวทีคนรุ่นใหม่สร้างแบรนด์ท้องถิ่น"</div>
+  <div class="hero-meta">
+    <span>25 กรกฎาคม 2569 · Bootcamp Day</span>
+    <span>5 สิงหาคม 2569 · Pitching Day</span>
+    <span>ห้องมะเดื่อ คณะมนุษยศาสตร์ฯ</span>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-bar-wrap">
+  <span class="progress-label">ความคืบหน้า</span>
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <span class="progress-pct" id="progressPct">0%</span>
+</div>
+
+<!-- FORM -->
+<div class="container">
+<form id="evalForm" novalidate>
+
+  <!-- ส่วนที่ 1 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">ข้อมูลทั่วไป</div>
+    </div>
+
+    <div class="card" id="card-name">
+      <div class="q-label"><span class="q-num">1.</span><span>ชื่อ-สกุล<span class="required-star">*</span></span></div>
+      <input class="text-input" type="text" name="name" placeholder="กรอกชื่อ-สกุล" oninput="updateProgress()">
+      <div class="field-error">กรุณากรอกชื่อ-สกุล</div>
+    </div>
+
+    <div class="card" id="card-faculty">
+      <div class="q-label"><span class="q-num">2.</span><span>คณะที่สังกัด<span class="required-star">*</span></span></div>
+      <select class="select-input" name="faculty" onchange="updateProgress()">
+        <option value="">-- เลือกคณะ --</option>
+        <option>มนุษยศาสตร์และสังคมศาสตร์</option>
+        <option>ศึกษาศาสตร์</option>
+        <option>วิทยาการอิสลาม</option>
+        <option>รัฐศาสตร์</option>
+        <option>คณะอื่นๆ</option>
+      </select>
+      <div class="field-error">กรุณาเลือกคณะ</div>
+    </div>
+
+    <div class="card" id="card-year">
+      <div class="q-label"><span class="q-num">3.</span><span>ชั้นปี<span class="required-star">*</span></span></div>
+      <div class="options-group">
+        <label class="option-item"><input type="radio" name="year" value="ปี 1" onchange="updateProgress()"><span>ปี 1</span></label>
+        <label class="option-item"><input type="radio" name="year" value="ปี 2" onchange="updateProgress()"><span>ปี 2</span></label>
+        <label class="option-item"><input type="radio" name="year" value="ปี 3" onchange="updateProgress()"><span>ปี 3</span></label>
+        <label class="option-item"><input type="radio" name="year" value="ปี 4 ขึ้นไป" onchange="updateProgress()"><span>ปี 4 ขึ้นไป</span></label>
+      </div>
+      <div class="field-error">กรุณาเลือกชั้นปี</div>
+    </div>
+
+    <div class="card" id="card-role">
+      <div class="q-label"><span class="q-num">4.</span><span>บทบาทในโครงการ<span class="required-star">*</span></span></div>
+      <div class="options-group">
+        <label class="option-item"><input type="radio" name="role" value="นักศึกษาผู้เข้าร่วมทั่วไป" onchange="updateProgress()"><span>นักศึกษาผู้เข้าร่วมทั่วไป</span></label>
+        <label class="option-item"><input type="radio" name="role" value="คณะกรรมการชมรม" onchange="updateProgress()"><span>คณะกรรมการชมรมผู้ประกอบการนักศึกษา ม.อ.ปัตตานี</span></label>
+        <label class="option-item"><input type="radio" name="role" value="ผู้นำเสนอ (Pitcher)" onchange="updateProgress()"><span>ผู้นำเสนอ (Pitcher)</span></label>
+      </div>
+      <div class="field-error">กรุณาเลือกบทบาท</div>
+    </div>
+  </div>
+
+  <!-- ส่วนที่ 2 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">ประเมินกิจกรรม Bootcamp Day (25 กรกฎาคม 2569)</div>
+    </div>
+
+    <div id="scale-info" style="background:var(--teal-pale);border-radius:12px;padding:12px 18px;margin-bottom:16px;font-size:14px;color:var(--teal);font-weight:600;">
+      ⭐ เกณฑ์การประเมิน: 1 = น้อยที่สุด &nbsp;|&nbsp; 3 = ปานกลาง &nbsp;|&nbsp; 5 = มากที่สุด
+    </div>
+
+    <div class="card" id="card-s1">
+      <div class="q-label"><span class="q-num">5.</span><span>Session 1: Business Model Canvas — เนื้อหาเข้าใจง่ายและนำไปใช้ได้จริง<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-s1">
+          <button type="button" class="scale-btn" onclick="selectScale('s1',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s1',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s1',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s1',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s1',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="s1" id="val-s1">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-s2">
+      <div class="q-label"><span class="q-num">6.</span><span>Session 2: Eco/Cultural Experiences &amp; Storytelling — เนื้อหามีประโยชน์และน่าสนใจ<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-s2">
+          <button type="button" class="scale-btn" onclick="selectScale('s2',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s2',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s2',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s2',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s2',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="s2" id="val-s2">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-s3">
+      <div class="q-label"><span class="q-num">7.</span><span>Session 3: Pitch Deck Essentials — เนื้อหาช่วยให้เตรียมการนำเสนอได้ดีขึ้น<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-s3">
+          <button type="button" class="scale-btn" onclick="selectScale('s3',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s3',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s3',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s3',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s3',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="s3" id="val-s3">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-s4">
+      <div class="q-label"><span class="q-num">8.</span><span>กิจกรรม Mock Pitch &amp; Feedback — ได้รับ Feedback ที่มีประโยชน์<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-s4">
+          <button type="button" class="scale-btn" onclick="selectScale('s4',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s4',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s4',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s4',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s4',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="s4" id="val-s4">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-s5">
+      <div class="q-label"><span class="q-num">9.</span><span>ภาพรวม Bootcamp Day — ความพึงพอใจโดยรวม<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-s5">
+          <button type="button" class="scale-btn" onclick="selectScale('s5',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s5',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s5',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s5',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('s5',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="s5" id="val-s5">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+  </div>
+
+  <!-- ส่วนที่ 3 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">ประเมินกิจกรรม Pitching Day (5 สิงหาคม 2569)</div>
+    </div>
+
+    <div class="card" id="card-p1">
+      <div class="q-label"><span class="q-num">10.</span><span>ความชัดเจนของกติกาและลำดับขั้นตอนการแข่งขัน<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-p1">
+          <button type="button" class="scale-btn" onclick="selectScale('p1',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p1',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p1',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p1',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p1',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="p1" id="val-p1">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-p2">
+      <div class="q-label"><span class="q-num">11.</span><span>คณะกรรมการผู้ทรงคุณวุฒิให้ข้อเสนอแนะที่เป็นประโยชน์และสร้างสรรค์<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-p2">
+          <button type="button" class="scale-btn" onclick="selectScale('p2',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p2',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p2',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p2',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p2',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="p2" id="val-p2">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-p3">
+      <div class="q-label"><span class="q-num">12.</span><span>กระบวนการตัดสินโปร่งใสและเป็นธรรม<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-p3">
+          <button type="button" class="scale-btn" onclick="selectScale('p3',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p3',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p3',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p3',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p3',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="p3" id="val-p3">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-p4">
+      <div class="q-label"><span class="q-num">13.</span><span>ภาพรวม Pitching Day — ความพึงพอใจโดยรวม<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-p4">
+          <button type="button" class="scale-btn" onclick="selectScale('p4',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p4',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p4',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p4',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('p4',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="p4" id="val-p4">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+  </div>
+
+  <!-- ส่วนที่ 4 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">ประเมินภาพรวมโครงการ</div>
+    </div>
+
+    <div class="card" id="card-o1">
+      <div class="q-label"><span class="q-num">14.</span><span>โครงการช่วยเสริมสร้างทักษะการออกแบบ Business Model ได้มากน้อยเพียงใด<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-o1">
+          <button type="button" class="scale-btn" onclick="selectScale('o1',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o1',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o1',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o1',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o1',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="o1" id="val-o1">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-o2">
+      <div class="q-label"><span class="q-num">15.</span><span>โครงการช่วยพัฒนาทักษะการนำเสนอ (Pitching) ได้มากน้อยเพียงใด<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-o2">
+          <button type="button" class="scale-btn" onclick="selectScale('o2',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o2',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o2',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o2',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o2',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="o2" id="val-o2">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-o3">
+      <div class="q-label"><span class="q-num">16.</span><span>โครงการทำให้มองเห็นโอกาสทางธุรกิจจากทุนวัฒนธรรมปัตตานีมากขึ้นหรือไม่<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-o3">
+          <button type="button" class="scale-btn" onclick="selectScale('o3',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o3',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o3',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o3',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('o3',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="o3" id="val-o3">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+
+    <div class="card" id="card-overall">
+      <div class="q-label"><span class="q-num">17.</span><span>ความพึงพอใจโดยรวมต่อโครงการ<span class="required-star">*</span></span></div>
+      <div class="scale-wrap">
+        <div class="scale-labels"><span>น้อยที่สุด</span><span>มากที่สุด</span></div>
+        <div class="scale-options" id="scale-overall">
+          <button type="button" class="scale-btn" onclick="selectScale('overall',1,this)">1</button>
+          <button type="button" class="scale-btn" onclick="selectScale('overall',2,this)">2</button>
+          <button type="button" class="scale-btn" onclick="selectScale('overall',3,this)">3</button>
+          <button type="button" class="scale-btn" onclick="selectScale('overall',4,this)">4</button>
+          <button type="button" class="scale-btn" onclick="selectScale('overall',5,this)">5</button>
+        </div>
+      </div>
+      <input type="hidden" name="overall" id="val-overall">
+      <div class="field-error">กรุณาให้คะแนน</div>
+    </div>
+  </div>
+
+  <!-- ส่วนที่ 5 -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">ความคิดเห็นและข้อเสนอแนะ</div>
+    </div>
+
+    <div class="card">
+      <div class="q-label"><span class="q-num">18.</span><span>สิ่งที่ประทับใจมากที่สุดในโครงการนี้คืออะไร?</span></div>
+      <textarea class="textarea-input" name="liked" placeholder="แสดงความคิดเห็น..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="card">
+      <div class="q-label"><span class="q-num">19.</span><span>มีสิ่งใดที่ควรปรับปรุงหรือเพิ่มเติมในโครงการครั้งต่อไป?</span></div>
+      <textarea class="textarea-input" name="improve" placeholder="แสดงความคิดเห็น..." oninput="updateProgress()"></textarea>
+    </div>
+
+    <div class="card" id="card-recommend">
+      <div class="q-label"><span class="q-num">20.</span><span>หากมีการจัดโครงการอีกครั้ง คุณจะแนะนำให้เพื่อนเข้าร่วมหรือไม่?<span class="required-star">*</span></span></div>
+      <div class="options-group">
+        <label class="option-item"><input type="radio" name="recommend" value="แนะนำแน่นอน" onchange="updateProgress()"><span>แนะนำแน่นอน</span></label>
+        <label class="option-item"><input type="radio" name="recommend" value="น่าจะแนะนำ" onchange="updateProgress()"><span>น่าจะแนะนำ</span></label>
+        <label class="option-item"><input type="radio" name="recommend" value="ไม่แน่ใจ" onchange="updateProgress()"><span>ไม่แน่ใจ</span></label>
+        <label class="option-item"><input type="radio" name="recommend" value="ไม่แนะนำ" onchange="updateProgress()"><span>ไม่แนะนำ</span></label>
+      </div>
+      <div class="field-error">กรุณาเลือกคำตอบ</div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-wrap">
+    <button type="submit" class="submit-btn">ส่งแบบประเมิน →</button>
+  </div>
+
+</form>
+
+<!-- SUCCESS -->
+<div class="success-screen" id="successScreen">
+  <div class="success-icon">✓</div>
+  <h2>ขอบคุณสำหรับการประเมิน!</h2>
+  <p>คำตอบของคุณได้รับการบันทึกเรียบร้อยแล้ว<br>ทีมงานชมรมผู้ประกอบการนักศึกษา ม.อ.ปัตตานี<br>จะนำข้อมูลนี้ไปปรับปรุงโครงการในอนาคตครับ</p>
+</div>
+
+</div><!-- end container -->
+
+<script>
+const scaleValues = {};
+
+function selectScale(key, val, btn) {
+  scaleValues[key] = val;
+  document.getElementById('val-' + key).value = val;
+  const group = document.getElementById('scale-' + key);
+  group.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  // clear error
+  const card = document.getElementById('card-' + key);
+  if (card) card.classList.remove('has-error');
+  updateProgress();
+}
+
+const requiredScales = ['s1','s2','s3','s4','s5','p1','p2','p3','p4','o1','o2','o3','overall'];
+const totalRequired = 4 + requiredScales.length + 1; // info(4) + scales(13) + recommend(1) = 18
+
+function updateProgress() {
+  let filled = 0;
+  const form = document.getElementById('evalForm');
+
+  if (document.querySelector('input[name="name"]') && document.querySelector('input[name="name"]').value.trim()) filled++;
+  if (form.querySelector('select[name="faculty"]').value) filled++;
+  if (form.querySelector('input[name="year"]:checked')) filled++;
+  if (form.querySelector('input[name="role"]:checked')) filled++;
+
+  requiredScales.forEach(k => {
+    if (scaleValues[k]) filled++;
+  });
+
+  if (form.querySelector('input[name="recommend"]:checked')) filled++;
+
+  const pct = Math.round((filled / totalRequired) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+document.getElementById('evalForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  let valid = true;
+
+  // validate text
+  const nameCard = document.getElementById('card-name');
+  const nameInput = document.querySelector('input[name="name"]');
+  if (!nameInput.value.trim()) { nameCard.classList.add('has-error'); valid = false; }
+  else nameCard.classList.remove('has-error');
+
+  // validate select
+  const facCard = document.getElementById('card-faculty');
+  if (!document.querySelector('select[name="faculty"]').value) { facCard.classList.add('has-error'); valid = false; }
+  else facCard.classList.remove('has-error');
+
+  // validate radios
+  ['year','role','recommend'].forEach(field => {
+    const cardId = field === 'recommend' ? 'card-recommend' : 'card-' + field;
+    const card = document.getElementById(cardId);
+    if (!document.querySelector('input[name="' + field + '"]:checked')) {
+      card.classList.add('has-error'); valid = false;
+    } else {
+      card.classList.remove('has-error');
+    }
+  });
+
+  // validate scales
+  requiredScales.forEach(k => {
+    const card = document.getElementById('card-' + k);
+    if (!scaleValues[k]) { card.classList.add('has-error'); valid = false; }
+    else card.classList.remove('has-error');
+  });
+
+  if (!valid) {
+    const firstError = document.querySelector('.card.has-error');
+    if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  // collect all form data
+  const formData = {};
+  new FormData(document.getElementById('evalForm')).forEach((v, k) => formData[k] = v);
+  Object.assign(formData, scaleValues);
+
+  // show loading state
+  const btn = document.querySelector('.submit-btn');
+  btn.textContent = 'กำลังส่ง...';
+  btn.disabled = true;
+
+  // send to Google Sheets
+  fetch("https://script.google.com/macros/s/AKfycbw69auBXQGsb9m_PaabjbnLgtSI4R9KSnzaKLNTw0eAvkT28dvOk_SZ5-8io7oKcZwp/exec", {
+    method: "POST",
+    body: JSON.stringify(formData)
+  })
+  .then(() => {
+    document.getElementById('evalForm').style.display = 'none';
+    document.getElementById('successScreen').style.display = 'block';
+    document.getElementById('successScreen').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('progressFill').style.width = '100%';
+    document.getElementById('progressPct').textContent = '100%';
+  })
+  .catch(() => {
+    btn.textContent = 'ส่งแบบประเมิน →';
+    btn.disabled = false;
+    alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้งครับ');
+  });
+});
+</script>
+
+</body>
+</html>
